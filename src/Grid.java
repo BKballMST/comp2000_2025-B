@@ -3,7 +3,7 @@ import java.awt.Point;
 import java.util.Optional;
 
 public class Grid {
-  Cell[][] cells = new Cell[20][20];
+  Cell[][] cells = new Cell[8][8];
   
   public Grid() {
     for(int i=0; i<cells.length; i++) {

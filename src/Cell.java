@@ -4,9 +4,11 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Cell extends Rectangle {
-  static int size = 35;
+  static int size = 90;
   char col;
   int row;
+  Color chessGreen = new Color(118, 150, 86);
+  Color chessWhite = new Color(238, 238, 210);
 
   public Cell(char inCol, int inRow, int x, int y) {
     super(x, y, size, size);
@@ -15,14 +17,15 @@ public class Cell extends Rectangle {
   }
 
   public void paint(Graphics g, Point mousePos) {
+    Color chessColor = ((col - 'A' + row) % 2 == 0) ? chessWhite : chessGreen;
     if(contains(mousePos)) {
       g.setColor(Color.GRAY);
     } else {
-      g.setColor(Color.WHITE);
+      g.setColor(chessColor);
     }
     g.fillRect(x, y, size, size);
     g.setColor(Color.BLACK);
-    g.drawRect(x, y, size, size);
+    g.drawRect(10, 10, 720, 720);
   }
 
   public boolean contains(Point p) {
