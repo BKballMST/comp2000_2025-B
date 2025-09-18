@@ -18,11 +18,7 @@ public class Cell extends Rectangle {
 
   public void paint(Graphics g, Point mousePos) {
     Color chessColor = ((col - 'A' + row) % 2 == 0) ? chessWhite : chessGreen;
-    if(contains(mousePos)) {
-      g.setColor(Color.GRAY);
-    } else {
-      g.setColor(chessColor);
-    }
+    g.setColor(chessColor);
     g.fillRect(x, y, size, size);
     g.setColor(Color.BLACK);
     g.drawRect(10, 10, 720, 720);
