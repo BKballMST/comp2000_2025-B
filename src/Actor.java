@@ -12,7 +12,7 @@ public abstract class Actor {
     for(Polygon p: display) {
       g.setColor(color);
       g.fillPolygon(p);
-      g.setColor(Color.GRAY);
+      g.setColor(Color.BLACK);
       g.drawPolygon(p);
     }
   }
