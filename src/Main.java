@@ -4,6 +4,10 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Optional;
+
 public class Main extends JFrame {
     public static void main(String[] args) throws Exception {
       Main window = new Main();
@@ -14,6 +18,21 @@ public class Main extends JFrame {
       Stage stage = new Stage();
       public Canvas() {
         setPreferredSize(new Dimension(1024, 740));
+        addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            Optional<Cell> cellOpt = stage.grid.cellAtPoint(e.getPoint());
+            if(cellOpt.isPresent()) {
+              Cell clickedCell = cellOpt.get();
+              if(stage.selectedPawn == null) {
+                stage.selectPawnAt(clickedCell);
+              } else {
+                stage.moveSelectedPawnTo(clickedCell);
+              }
+            }
+            repaint();
+          }
+        });
       }
 
       @Override

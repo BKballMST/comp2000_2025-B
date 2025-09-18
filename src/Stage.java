@@ -8,6 +8,8 @@ import java.util.Optional;
 public class Stage {
   Grid grid;
   List<Actor> actors;
+  Actor selectedPawn = null;
+  List<Cell> possibleMoves = new ArrayList<>();
 
   public Stage() {
     grid = new Grid();
@@ -16,8 +18,44 @@ public class Stage {
     actors.add(new Pawn(grid.cellAtColRow(3, 6).get()));
   }
   
+  public void selectPawnAt(Cell cell) {
+    for (Actor a : actors) {
+      if (a.loc == cell) {
+        selectedPawn = a;
+        possibleMoves.clear();
+        possibleMoves.add(grid.cellAtColRow(cell.col, cell.row - 1).orElse(null));
+        return;
+      }
+    }
+    selectedPawn = null;
+    possibleMoves.clear();
+  }
+
+  public void moveSelectedPawnTo(Cell cell) {
+    if (selectedPawn != null && possibleMoves.contains(cell)) {
+      if (selectedPawn instanceof Pawn) {
+        ((Pawn)selectedPawn).setLocation(cell);
+      } else {
+        selectedPawn.loc = cell;
+      }
+      selectedPawn = null;
+      possibleMoves.clear();
+    }
+  }
+
   public void paint(Graphics g, Point mouseLoc) {
     grid.paint(g, mouseLoc);
+
+    g.setColor(new Color(0, 255, 0, 128));
+    for(Cell move: possibleMoves) {
+      if(move != null) {
+        g.fillRect(move.x, move.y, Cell.size, Cell.size);
+      }
+    }
+    if (selectedPawn != null) {
+      g.setColor(Color.YELLOW);
+      g.fillRect(selectedPawn.loc.x, selectedPawn.loc.y, Cell.size, Cell.size);
+    }
     Optional<Cell> underMouse = grid.cellAtPoint(mouseLoc);
     if(underMouse.isPresent()) {
       Cell hoverCell = underMouse.get();
