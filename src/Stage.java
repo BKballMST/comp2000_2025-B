@@ -10,36 +10,54 @@ public class Stage {
   List<Actor> actors;
   Actor selectedPawn = null;
   List<Cell> possibleMoves = new ArrayList<>();
+  boolean whiteTurn = true;
 
   public Stage() {
     grid = new Grid();
     actors = new ArrayList<Actor>();
-    actors.add(new Pawn(grid.cellAtColRow(4, 6).get()));
-    actors.add(new Pawn(grid.cellAtColRow(3, 6).get()));
+    //White Pawns
+    actors.add(new Pawn(grid.cellAtColRow(4, 6).get(), true));
+    actors.add(new Pawn(grid.cellAtColRow(3, 6).get(), true));
+    //Black Pawns
+    actors.add(new Pawn(grid.cellAtColRow(4, 1).get(), false));
+    actors.add(new Pawn(grid.cellAtColRow(3, 1).get(), false));
   }
   
   public void selectPawnAt(Cell cell) {
     for (Actor a : actors) {
-      if (a.loc == cell) {
-        selectedPawn = a;
-        possibleMoves.clear();
-        possibleMoves.add(grid.cellAtColRow(cell.col, cell.row - 1).orElse(null));
-        return;
+      if (a.loc == cell && a instanceof Pawn) {
+        Pawn pawn = (Pawn)a;
+        if (pawn.isWhite () == whiteTurn) {
+          selectedPawn = a;
+          possibleMoves.clear();
+          int nextRow = pawn.isWhite() ? cell.row - 1 : cell.row + 1;
+          possibleMoves.add(grid.cellAtColRow(cell.col, nextRow).orElse(null));
+          return;
+        }
       }
     }
     selectedPawn = null;
     possibleMoves.clear();
   }
 
+  public boolean isCellOccupied(Cell cell) {
+    for (Actor a : actors) {
+      if (a.loc == cell) {
+        return true;          
+      }
+    }
+    return false;
+  }
   public void moveSelectedPawnTo(Cell cell) {
-    if (selectedPawn != null && possibleMoves.contains(cell)) {
-      if (selectedPawn instanceof Pawn) {
-        ((Pawn)selectedPawn).setLocation(cell);
+    if (selectedPawn != null && possibleMoves.contains(cell) && !isCellOccupied(cell)) {
+      if (selectedPawn instanceof PawnMove) {
+        ((PawnMove)selectedPawn).setPawnLocation(cell);
       } else {
         selectedPawn.loc = cell;
       }
       selectedPawn = null;
       possibleMoves.clear();
+      whiteTurn = !whiteTurn;
     }
   }
 

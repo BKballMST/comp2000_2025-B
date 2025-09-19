@@ -7,7 +7,6 @@ public abstract class Actor {
   Color color;
   Cell loc;
   List<Polygon> display;
-  public abstract void setLocation(Cell newloc);
   
   public void paint(Graphics g) {
     for(Polygon p: display) {

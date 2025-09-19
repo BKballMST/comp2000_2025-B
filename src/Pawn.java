@@ -2,10 +2,13 @@ import java.awt.Color;
 import java.awt.Polygon;
 import java.util.ArrayList;
 
-public class Pawn extends Actor {
-  public Pawn(Cell inLoc) {
+public class Pawn extends Actor implements PawnMove {
+  private boolean isWhite;
+
+  public Pawn(Cell inLoc, boolean isWhite) {
     loc = inLoc;
-    color = Color.WHITE;
+    color = isWhite ? Color.WHITE : Color.BLACK;
+    this.isWhite = isWhite;
     display = new ArrayList<Polygon>();
     Polygon base = new Polygon();
     base.addPoint(loc.x + 10, loc.y + 70);
@@ -28,7 +31,13 @@ public class Pawn extends Actor {
     display.add(body);
     display.add(head);
   }
-  public void setLocation(Cell newLoc) {
+
+  public boolean isWhite() {
+    return isWhite;
+  }
+
+  @Override
+  public void setPawnLocation(Cell newLoc) {
     loc = newLoc;
     display.clear();
     Polygon base = new Polygon();
