@@ -15,28 +15,28 @@ public class Main extends JFrame {
     }
 
     class Canvas extends JPanel {
-      Stage stage = new Stage();
+      GamePlay game = new GamePlay();
       public Canvas() {
         setPreferredSize(new Dimension(1024, 740));
         // Handle mouse clicks for selecting and moving pieces
         addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
-            // Get the cell that was clicked
-            Optional<Cell> cellOpt = stage.grid.cellAtPoint(e.getPoint());
-            if(cellOpt.isPresent()) {
-              Cell clickedCell = cellOpt.get();
-              if(stage.selectedPiece == null) {
+            // Get the square that was clicked
+            Optional<ChessSquare> squareOpt = game.board.squareAtPoint(e.getPoint());
+            if(squareOpt.isPresent()) {
+              ChessSquare clickedSquare = squareOpt.get();
+              if(game.selectedPiece == null) {
                 // No piece selected yet, try to select one
-                stage.selectPieceAt(clickedCell);
+                game.selectPieceAt(clickedSquare);
               } else {
                 // Deselect if clicking the selected piece
-                if (stage.selectedPiece.loc == clickedCell) {
-                  stage.selectedPiece = null;
-                  stage.possibleMoves.clear();
+                if (game.selectedPiece.loc == clickedSquare) {
+                  game.selectedPiece = null;
+                  game.possibleMoves.clear();
                 } else {
                   // Try to move the selected piece to the clicked cell
-                  stage.moveSelectedPieceTo(clickedCell);
+                  game.moveSelectedPieceTo(clickedSquare);
                 }
               }
             }
@@ -48,8 +48,8 @@ public class Main extends JFrame {
 
       @Override
       public void paint(Graphics g) {
-        // Delegate painting to the stage
-        stage.paint(g, getMousePosition());
+        // Delegate painting to the game
+        game.paint(g, getMousePosition());
       }
     }
 

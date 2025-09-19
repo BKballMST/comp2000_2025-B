@@ -1,11 +1,12 @@
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Pawn extends Actor implements PawnMove {
+public class Pawn extends ChessPiece implements ChessMove {
   private boolean isWhite;
 
-  public Pawn(Cell inLoc, boolean isWhite) {
+  public Pawn(ChessSquare inLoc, boolean isWhite) {
     loc = inLoc;
     color = isWhite ? Color.WHITE : Color.BLACK;
     this.isWhite = isWhite;
@@ -37,7 +38,7 @@ public class Pawn extends Actor implements PawnMove {
   }
 
   @Override
-  public void setPawnLocation(Cell newLoc) {
+  public void setLocation(ChessSquare newLoc) {
     loc = newLoc;
     display.clear();
     Polygon base = new Polygon();
@@ -60,5 +61,15 @@ public class Pawn extends Actor implements PawnMove {
     display.add(base);
     display.add(body);
     display.add(head);
+  }
+
+  @Override
+  public List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn) {
+    List<ChessSquare> moves = new ArrayList<>();
+    if (isWhite() == whiteTurn) {
+      int nextRow = isWhite() ? loc.row - 1 : loc.row + 1;
+      grid.squareAtColRow(loc.col, nextRow).ifPresent(moves::add);
+    }
+    return moves;
   }
 }

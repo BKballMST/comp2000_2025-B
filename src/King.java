@@ -1,11 +1,12 @@
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.List;
 
-public class King extends Actor implements KingMove {
+public class King extends ChessPiece implements ChessMove {
     private boolean isWhite;
 
-    public King(Cell inLoc, boolean isWhite) {
+    public King(ChessSquare inLoc, boolean isWhite) {
         loc = inLoc;
         color = isWhite ? Color.WHITE : Color.BLACK;
         this.isWhite = isWhite;
@@ -32,7 +33,7 @@ public class King extends Actor implements KingMove {
     public boolean isWhite() {
         return isWhite;
     }
-    public void setKingLocation(Cell newLoc) {
+    public void setLocation(ChessSquare newLoc) {
         loc = newLoc;
         display.clear();
         Polygon base = new Polygon();
@@ -52,5 +53,21 @@ public class King extends Actor implements KingMove {
         display.add(base);
         display.add(body);
         display.add(crown);
+    }
+
+    @Override
+    public List<ChessSquare> getPossibleMoves(ChessBoard board, boolean whiteTurn) {
+        List<ChessSquare> moves = new ArrayList<>();
+        if (isWhite() == whiteTurn) {
+            //King can move one square in any direction
+            for (int dCol = -1; dCol <= 1; dCol++) {
+                for (int dRow = -1; dRow <= 1; dRow++) {
+                    char newCol = (char)(loc.col + dCol);
+                    int newRow = loc.row + dRow;
+                    board.squareAtColRow(newCol, newRow).ifPresent(moves::add);
+                }
+            }
+        }
+        return moves;
     }
 }

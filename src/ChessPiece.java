@@ -3,10 +3,13 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.List;
 
-public abstract class Actor {
+public abstract class ChessPiece {
   Color color;
-  Cell loc;
+  ChessSquare loc;
   List<Polygon> display;
+
+  // Abstract method to get possible moves for the piece
+  public abstract List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn);
   
   public void paint(Graphics g) {
     // Draw each polygon that makes up the actor

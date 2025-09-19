@@ -3,14 +3,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Cell extends Rectangle {
+public class ChessSquare extends Rectangle {
   static int size = 90;
   char col;
   int row;
   Color chessGreen = new Color(118, 150, 86);
   Color chessWhite = new Color(238, 238, 210);
 
-  public Cell(char inCol, int inRow, int x, int y) {
+  public ChessSquare(char inCol, int inRow, int x, int y) {
     // Initialize cell position and size
     super(x, y, size, size);
     col = inCol;
