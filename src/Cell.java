@@ -11,6 +11,7 @@ public class Cell extends Rectangle {
   Color chessWhite = new Color(238, 238, 210);
 
   public Cell(char inCol, int inRow, int x, int y) {
+    // Initialize cell position and size
     super(x, y, size, size);
     col = inCol;
     row = inRow;
@@ -26,6 +27,7 @@ public class Cell extends Rectangle {
   }
 
   public boolean contains(Point p) {
+    // Safely check if point is within cell bounds
     if(p != null) {
       return super.contains(p);
     } else {

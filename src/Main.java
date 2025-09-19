@@ -18,24 +18,29 @@ public class Main extends JFrame {
       Stage stage = new Stage();
       public Canvas() {
         setPreferredSize(new Dimension(1024, 740));
+        // Handle mouse clicks for selecting and moving pieces
         addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
+            // Get the cell that was clicked
             Optional<Cell> cellOpt = stage.grid.cellAtPoint(e.getPoint());
             if(cellOpt.isPresent()) {
               Cell clickedCell = cellOpt.get();
-              if(stage.selectedPawn == null) {
-                stage.selectPawnAt(clickedCell);
+              if(stage.selectedPiece == null) {
+                // No piece selected yet, try to select one
+                stage.selectPieceAt(clickedCell);
               } else {
-                // Deselect if clicking the selected pawn
-                if (stage.selectedPawn.loc == clickedCell) {
-                  stage.selectedPawn = null;
+                // Deselect if clicking the selected piece
+                if (stage.selectedPiece.loc == clickedCell) {
+                  stage.selectedPiece = null;
                   stage.possibleMoves.clear();
                 } else {
-                  stage.moveSelectedPawnTo(clickedCell);
+                  // Try to move the selected piece to the clicked cell
+                  stage.moveSelectedPieceTo(clickedCell);
                 }
               }
             }
+            // Repaint to show selection/move changes
             repaint();
           }
         });
@@ -43,6 +48,7 @@ public class Main extends JFrame {
 
       @Override
       public void paint(Graphics g) {
+        // Delegate painting to the stage
         stage.paint(g, getMousePosition());
       }
     }
