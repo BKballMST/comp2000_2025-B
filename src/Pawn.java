@@ -64,11 +64,23 @@ public class Pawn extends ChessPiece implements ChessMove {
   }
 
   @Override
-  public List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn) {
+  public List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn, List<ChessPiece> allPieces) {
     List<ChessSquare> moves = new ArrayList<>();
     if (isWhite() == whiteTurn) {
       int nextRow = isWhite() ? loc.row - 1 : loc.row + 1;
-      grid.squareAtColRow(loc.col, nextRow).ifPresent(moves::add);
+      ChessSquare square = grid.squareAtColRow(loc.col, nextRow).orElse(null);
+      if (square != null) {
+        boolean occupied = false;
+        for (ChessPiece piece : allPieces) {
+          if (piece.loc == square) {
+            occupied = true;
+            break;
+          }
+        }
+        if (!occupied) {
+          moves.add(square);
+        }
+      }
     }
     return moves;
   }

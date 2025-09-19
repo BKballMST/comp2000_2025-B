@@ -25,6 +25,10 @@ public class GamePlay {
     pieces.add(new King(board.squareAtColRow(4, 7).get(), true));
     //Black King
     pieces.add(new King(board.squareAtColRow(4, 0).get(), false));
+    //White Queen
+    pieces.add(new Queen(board.squareAtColRow(3, 7).get(), true));
+    //Black Queen
+    pieces.add(new Queen(board.squareAtColRow(3, 0).get(), false));
   }
   
   public void selectPieceAt(ChessSquare cell) {
@@ -34,9 +38,10 @@ public class GamePlay {
       if (a.loc == cell) {
         // Select the piece only if it matches the current turn
         if ((a instanceof Pawn && ((Pawn)a).isWhite() == whiteTurn) ||
-            (a instanceof King && ((King)a).isWhite() == whiteTurn)) {
+            (a instanceof King && ((King)a).isWhite() == whiteTurn) ||
+            (a instanceof Queen && ((Queen)a).isWhite() == whiteTurn)) {
             selectedPiece = a;
-            possibleMoves = a.getPossibleMoves(board, whiteTurn);
+            possibleMoves = a.getPossibleMoves(board, whiteTurn, pieces);
             return;
         }
       }
@@ -90,15 +95,15 @@ public class GamePlay {
     Optional<ChessSquare> underMouse = board.squareAtPoint(mouseLoc);
     // Highlight square under mouse and show coordinates
     if(underMouse.isPresent()) {
-      ChessSquare hoverCell = underMouse.get();
+      ChessSquare hoverSquare = underMouse.get();
       for (ChessPiece a: pieces) {
-        if(a.loc == hoverCell) {
+        if(a.loc == hoverSquare) {
           g.setColor(Color.YELLOW);
-          g.fillRect(hoverCell.x, hoverCell.y, ChessSquare.size, ChessSquare.size);
+          g.fillRect(hoverSquare.x, hoverSquare.y, ChessSquare.size, ChessSquare.size);
         }
       }
       g.setColor(Color.DARK_GRAY);
-      g.drawString(String.valueOf(hoverCell.col) + String.valueOf(hoverCell.row), 740, 30);
+      g.drawString(String.valueOf(hoverSquare.col) + String.valueOf(hoverSquare.row), 740, 30);
     }
     // Draw all actors
     for(ChessPiece a: pieces) {
