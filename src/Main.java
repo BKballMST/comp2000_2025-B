@@ -27,7 +27,13 @@ public class Main extends JFrame {
               if(stage.selectedPawn == null) {
                 stage.selectPawnAt(clickedCell);
               } else {
-                stage.moveSelectedPawnTo(clickedCell);
+                // Deselect if clicking the selected pawn
+                if (stage.selectedPawn.loc == clickedCell) {
+                  stage.selectedPawn = null;
+                  stage.possibleMoves.clear();
+                } else {
+                  stage.moveSelectedPawnTo(clickedCell);
+                }
               }
             }
             repaint();
