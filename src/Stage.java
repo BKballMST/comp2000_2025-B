@@ -75,6 +75,7 @@ public class Stage {
       g.fillRect(selectedPawn.loc.x, selectedPawn.loc.y, Cell.size, Cell.size);
     }
     Optional<Cell> underMouse = grid.cellAtPoint(mouseLoc);
+    // Highlight cell under mouse and show coordinates
     if(underMouse.isPresent()) {
       Cell hoverCell = underMouse.get();
       for (Actor a: actors) {
@@ -86,6 +87,7 @@ public class Stage {
       g.setColor(Color.DARK_GRAY);
       g.drawString(String.valueOf(hoverCell.col) + String.valueOf(hoverCell.row), 740, 30);
     }
+    // Draw all actors
     for(Actor a: actors) {
       a.paint(g);
     }

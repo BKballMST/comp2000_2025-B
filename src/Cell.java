@@ -17,6 +17,7 @@ public class Cell extends Rectangle {
   }
 
   public void paint(Graphics g, Point mousePos) {
+    //Create chessboard pattern
     Color chessColor = ((col - 'A' + row) % 2 == 0) ? chessWhite : chessGreen;
     g.setColor(chessColor);
     g.fillRect(x, y, size, size);
