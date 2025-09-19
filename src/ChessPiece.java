@@ -9,7 +9,7 @@ public abstract class ChessPiece {
   List<Polygon> display;
 
   // Abstract method to get possible moves for the piece
-  public abstract List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn);
+  public abstract List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn, List<ChessPiece> allPieces);
   
   public void paint(Graphics g) {
     // Draw each polygon that makes up the actor
