@@ -29,6 +29,24 @@ public class GamePlay {
     pieces.add(new Queen(board.squareAtColRow(3, 7).get(), true));
     //Black Queen
     pieces.add(new Queen(board.squareAtColRow(3, 0).get(), false));
+    //White Bishops
+    pieces.add(new Bishop(board.squareAtColRow(2, 7).get(), true));
+    pieces.add(new Bishop(board.squareAtColRow(5, 7).get(), true));
+    //Black Bishops
+    pieces.add(new Bishop(board.squareAtColRow(2, 0).get(), false));
+    pieces.add(new Bishop(board.squareAtColRow(5, 0).get(), false));
+    //White Rooks
+    pieces.add(new Rook(board.squareAtColRow(0, 7).get(), true));
+    pieces.add(new Rook(board.squareAtColRow(7, 7).get(), true));
+    //Black Rooks
+    pieces.add(new Rook(board.squareAtColRow(0, 0).get(), false));
+    pieces.add(new Rook(board.squareAtColRow(7, 0).get(), false));
+    //White Knights
+    pieces.add(new Knight(board.squareAtColRow(1, 7).get(), true));
+    pieces.add(new Knight(board.squareAtColRow(6, 7).get(), true));
+    //Black Knights
+    pieces.add(new Knight(board.squareAtColRow(1, 0).get(), false));
+    pieces.add(new Knight(board.squareAtColRow(6, 0).get(), false));
   }
   
   public void selectPieceAt(ChessSquare cell) {
@@ -39,7 +57,10 @@ public class GamePlay {
         // Select the piece only if it matches the current turn
         if ((a instanceof Pawn && ((Pawn)a).isWhite() == whiteTurn) ||
             (a instanceof King && ((King)a).isWhite() == whiteTurn) ||
-            (a instanceof Queen && ((Queen)a).isWhite() == whiteTurn)) {
+            (a instanceof Queen && ((Queen)a).isWhite() == whiteTurn) ||
+            (a instanceof Bishop && ((Bishop)a).isWhite() == whiteTurn) ||
+            (a instanceof Rook && ((Rook)a).isWhite() == whiteTurn) ||
+            (a instanceof Knight && ((Knight)a).isWhite() == whiteTurn)) {
             selectedPiece = a;
             possibleMoves = a.getPossibleMoves(board, whiteTurn, pieces);
             return;
