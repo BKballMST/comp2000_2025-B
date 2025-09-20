@@ -67,6 +67,7 @@ public class Queen extends ChessPiece implements ChessMove {
     public List<ChessSquare> getPossibleMoves(ChessBoard board, boolean whiteTurn, List<ChessPiece> allPieces) {
         List<ChessSquare> moves = new ArrayList<>();
         if (isWhite() == whiteTurn) {
+            // Can move in all 8 directions
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
                     char newCol = (char)(loc.col);

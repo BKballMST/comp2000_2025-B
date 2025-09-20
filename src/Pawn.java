@@ -43,6 +43,7 @@ public class Pawn extends ChessPiece implements ChessMove {
   public List<ChessSquare> getPossibleMoves(ChessBoard grid, boolean whiteTurn, List<ChessPiece> allPieces) {
     List<ChessSquare> moves = new ArrayList<>();
     if (isWhite() == whiteTurn) {
+      // Move one square forward if not occupied
       int nextRow = isWhite() ? loc.row - 1 : loc.row + 1;
       ChessSquare square = grid.squareAtColRow(loc.col, nextRow).orElse(null);
       if (square != null) {
