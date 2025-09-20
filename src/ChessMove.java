@@ -1,3 +1,3 @@
 public interface ChessMove {
-    void setLocation(ChessSquare cell);
+    void setLocation(ChessSquare square);
 }

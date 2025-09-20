@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Optional;
@@ -5,9 +6,11 @@ import java.util.Optional;
 public class ChessBoard {
   // 8x8 grid of ChessSquares
   ChessSquare[][] square = new ChessSquare[8][8];
-  
+  Color chessGreen = new Color(118, 150, 86);
+  Color chessWhite = new Color(238, 238, 210);
+
   public ChessBoard() {
-    // Initialize the board with squares labeled A-H and 0-7
+    // Initialize the board with squares
     for(int i=0; i<square.length; i++) {
       for(int j=0; j<square[i].length; j++) {
         square[i][j] = new ChessSquare(colToLabel(i), j, 10+ChessSquare.size*i, 10+ChessSquare.size*j);
@@ -26,13 +29,22 @@ public class ChessBoard {
   }
 
   public void paint(Graphics g, Point mousePos) {
+    g.setFont(g.getFont().deriveFont(16.0f));
     // Paint each square in the grid
     for(int i=0; i<square.length; i++) {
       for(int j=0; j<square[i].length; j++) {
         square[i][j].paint(g, mousePos);
+        // Draw row labels on the left side
+        Color textColor = ((square[0][j].col - 'A' + square[0][j].row) % 2 == 0) ? chessGreen : chessWhite;
+        g.setColor(textColor);
+        g.drawString(String.valueOf(8 - square[0][j].row), 13, 10 + j * ChessSquare.size + 15);
       }
+      // Draw column labels on the bottom
+      Color textColor = ((square[i][0].col - 'A' + square[i][0].row) % 2 == 0) ? chessWhite : chessGreen;
+      g.setColor(textColor);
+      g.drawString(String.valueOf(square[i][0].col).toLowerCase(), 10 + i * ChessSquare.size + 77, 725);
     }
-  }
+ }
 
   public Optional<ChessSquare> squareAtColRow(int c, int r) {
     // Return the square at the specified column and row if within bounds

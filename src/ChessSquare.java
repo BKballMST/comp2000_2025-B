@@ -11,7 +11,7 @@ public class ChessSquare extends Rectangle {
   Color chessWhite = new Color(238, 238, 210);
 
   public ChessSquare(char inCol, int inRow, int x, int y) {
-    // Initialize cell position and size
+    // Initialize square position and size
     super(x, y, size, size);
     col = inCol;
     row = inRow;

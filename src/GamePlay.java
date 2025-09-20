@@ -80,7 +80,7 @@ public class GamePlay {
   public void paint(Graphics g, Point mouseLoc) {
     board.paint(g, mouseLoc);
     // Highlight possible moves
-    g.setColor(new Color(0, 255, 0, 128));
+    g.setColor(new Color(0, 255, 0, 128)); // Green with transparency
     for(ChessSquare move: possibleMoves) {
       if(move != null && !isSquareOccupied(move)) {
         // Highlight the square for possible move if not occupied
@@ -89,7 +89,7 @@ public class GamePlay {
     }
     if (selectedPiece != null) {
       // Highlight the selected piece
-      g.setColor(Color.YELLOW);
+      g.setColor(new Color( 255, 255, 0, 128)); // Yellow with transparency
       g.fillRect(selectedPiece.loc.x, selectedPiece.loc.y, ChessSquare.size, ChessSquare.size);
     }
     Optional<ChessSquare> underMouse = board.squareAtPoint(mouseLoc);
@@ -98,12 +98,12 @@ public class GamePlay {
       ChessSquare hoverSquare = underMouse.get();
       for (ChessPiece a: pieces) {
         if(a.loc == hoverSquare) {
-          g.setColor(Color.YELLOW);
+          g.setColor(new Color(255, 255, 0, 128));
           g.fillRect(hoverSquare.x, hoverSquare.y, ChessSquare.size, ChessSquare.size);
         }
       }
       g.setColor(Color.DARK_GRAY);
-      g.drawString(String.valueOf(hoverSquare.col) + String.valueOf(hoverSquare.row), 740, 30);
+      g.drawString(String.valueOf(hoverSquare.col) + String.valueOf(8 - hoverSquare.row), 740, 30);
     }
     // Draw all actors
     for(ChessPiece a: pieces) {
