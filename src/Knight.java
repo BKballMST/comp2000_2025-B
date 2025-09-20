@@ -11,15 +11,39 @@ public class Knight extends ChessPiece implements ChessMove {
         color = isWhite ? Color.WHITE : Color.BLACK;
         this.isWhite = isWhite;
         display = new ArrayList<Polygon>();
-        // Simple polygon for knight
-        Polygon body = new Polygon();
-        body.addPoint(loc.x + 40, loc.y + 70);
-        body.addPoint(loc.x + 60, loc.y + 70);
-        body.addPoint(loc.x + 60, loc.y + 40);
-        body.addPoint(loc.x + 50, loc.y + 30);
-        body.addPoint(loc.x + 40, loc.y + 40);
-        body.addPoint(loc.x + 40, loc.y + 70);
-        display.add(body);
+        // Head
+        Polygon head = new Polygon();
+        head.addPoint(loc.x + 50, loc.y + 20);
+        head.addPoint(loc.x + 60, loc.y + 30);
+        head.addPoint(loc.x + 55, loc.y + 40);
+        head.addPoint(loc.x + 45, loc.y + 35);
+        head.addPoint(loc.x + 50, loc.y + 20);
+
+        // Neck
+        Polygon neck = new Polygon();
+        neck.addPoint(loc.x + 45, loc.y + 35);
+        neck.addPoint(loc.x + 55, loc.y + 40);
+        neck.addPoint(loc.x + 55, loc.y + 60);
+        neck.addPoint(loc.x + 45, loc.y + 60);
+
+        // Mane
+        Polygon mane = new Polygon();
+        mane.addPoint(loc.x + 45, loc.y + 35);
+        mane.addPoint(loc.x + 40, loc.y + 40);
+        mane.addPoint(loc.x + 42, loc.y + 50);
+        mane.addPoint(loc.x + 45, loc.y + 60);
+
+        // Base
+        Polygon base = new Polygon();
+        base.addPoint(loc.x + 40, loc.y + 60);
+        base.addPoint(loc.x + 60, loc.y + 60);
+        base.addPoint(loc.x + 60, loc.y + 70);
+        base.addPoint(loc.x + 40, loc.y + 70);
+
+        display.add(head);
+        display.add(neck);
+        display.add(mane);
+        display.add(base);
     }
 
     public boolean isWhite() {
@@ -30,14 +54,39 @@ public class Knight extends ChessPiece implements ChessMove {
     public void setLocation(ChessSquare newLoc) {
         loc = newLoc;
         display.clear();
-        Polygon body = new Polygon();
-        body.addPoint(loc.x + 40, loc.y + 70);
-        body.addPoint(loc.x + 60, loc.y + 70);
-        body.addPoint(loc.x + 60, loc.y + 40);
-        body.addPoint(loc.x + 50, loc.y + 30);
-        body.addPoint(loc.x + 40, loc.y + 40);
-        body.addPoint(loc.x + 40, loc.y + 70);
-        display.add(body);
+        // Head
+        Polygon head = new Polygon();
+        head.addPoint(loc.x + 50, loc.y + 20);
+        head.addPoint(loc.x + 60, loc.y + 30);
+        head.addPoint(loc.x + 55, loc.y + 40);
+        head.addPoint(loc.x + 45, loc.y + 35);
+        head.addPoint(loc.x + 50, loc.y + 20);
+
+        // Neck
+        Polygon neck = new Polygon();
+        neck.addPoint(loc.x + 45, loc.y + 35);
+        neck.addPoint(loc.x + 55, loc.y + 40);
+        neck.addPoint(loc.x + 55, loc.y + 60);
+        neck.addPoint(loc.x + 45, loc.y + 60);
+
+        // Mane
+        Polygon mane = new Polygon();
+        mane.addPoint(loc.x + 45, loc.y + 35);
+        mane.addPoint(loc.x + 40, loc.y + 40);
+        mane.addPoint(loc.x + 42, loc.y + 50);
+        mane.addPoint(loc.x + 45, loc.y + 60);
+
+        // Base
+        Polygon base = new Polygon();
+        base.addPoint(loc.x + 40, loc.y + 60);
+        base.addPoint(loc.x + 60, loc.y + 60);
+        base.addPoint(loc.x + 60, loc.y + 70);
+        base.addPoint(loc.x + 40, loc.y + 70);
+
+        display.add(head);
+        display.add(neck);
+        display.add(mane);
+        display.add(base);
     }
 
     @Override

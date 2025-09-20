@@ -11,26 +11,14 @@ public class Pawn extends ChessPiece implements ChessMove {
     color = isWhite ? Color.WHITE : Color.BLACK;
     this.isWhite = isWhite;
     display = new ArrayList<Polygon>();
-    Polygon base = new Polygon();
-    base.addPoint(loc.x + 10, loc.y + 70);
-    base.addPoint(loc.x + 80, loc.y + 70);
-    base.addPoint(loc.x + 80, loc.y + 60);
-    base.addPoint(loc.x + 10, loc.y + 60);
     Polygon body = new Polygon();
-    body.addPoint(loc.x + 30, loc.y + 60);
-    body.addPoint(loc.x + 60, loc.y + 60);
-    body.addPoint(loc.x + 70, loc.y + 30);
-    body.addPoint(loc.x + 20, loc.y + 30);
-    body.addPoint(loc.x + 30, loc.y + 60);
-    Polygon head = new Polygon();
-    head.addPoint(loc.x + 35, loc.y + 30);
-    head.addPoint(loc.x + 55, loc.y + 30);
-    head.addPoint(loc.x + 55, loc.y + 10);
-    head.addPoint(loc.x + 35, loc.y + 10);
-    head.addPoint(loc.x + 35, loc.y + 30);
-    display.add(base);
+    body.addPoint(loc.x + 40, loc.y + 70);
+    body.addPoint(loc.x + 60, loc.y + 70);
+    body.addPoint(loc.x + 60, loc.y + 40);
+    body.addPoint(loc.x + 50, loc.y + 30);
+    body.addPoint(loc.x + 40, loc.y + 40);
+    body.addPoint(loc.x + 40, loc.y + 70);
     display.add(body);
-    display.add(head);
   }
 
   public boolean isWhite() {
@@ -41,26 +29,14 @@ public class Pawn extends ChessPiece implements ChessMove {
   public void setLocation(ChessSquare newLoc) {
     loc = newLoc;
     display.clear();
-    Polygon base = new Polygon();
-    base.addPoint(loc.x + 10, loc.y + 70);
-    base.addPoint(loc.x + 80, loc.y + 70);
-    base.addPoint(loc.x + 80, loc.y + 60);
-    base.addPoint(loc.x + 10, loc.y + 60);
     Polygon body = new Polygon();
-    body.addPoint(loc.x + 30, loc.y + 60);
-    body.addPoint(loc.x + 60, loc.y + 60);
-    body.addPoint(loc.x + 70, loc.y + 30);
-    body.addPoint(loc.x + 20, loc.y + 30);
-    body.addPoint(loc.x + 30, loc.y + 60);
-    Polygon head = new Polygon();
-    head.addPoint(loc.x + 35, loc.y + 30);
-    head.addPoint(loc.x + 55, loc.y + 30);
-    head.addPoint(loc.x + 55, loc.y + 10);
-    head.addPoint(loc.x + 35, loc.y + 10);
-    head.addPoint(loc.x + 35, loc.y + 30);
-    display.add(base);
+    body.addPoint(loc.x + 40, loc.y + 70);
+    body.addPoint(loc.x + 60, loc.y + 70);
+    body.addPoint(loc.x + 60, loc.y + 40);
+    body.addPoint(loc.x + 50, loc.y + 30);
+    body.addPoint(loc.x + 40, loc.y + 40);
+    body.addPoint(loc.x + 40, loc.y + 70);
     display.add(body);
-    display.add(head);
   }
 
   @Override

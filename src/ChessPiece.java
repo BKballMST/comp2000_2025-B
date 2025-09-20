@@ -18,7 +18,11 @@ public abstract class ChessPiece {
       g.setColor(color);
       g.fillPolygon(p);
       // Draw the outline
-      g.setColor(Color.BLACK);
+      if (color == Color.BLACK) {
+        g.setColor(Color.WHITE);
+      } else {
+        g.setColor(Color.BLACK);
+      }
       g.drawPolygon(p);
     }
   }
