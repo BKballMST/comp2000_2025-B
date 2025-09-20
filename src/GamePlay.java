@@ -11,6 +11,7 @@ public class GamePlay {
   ChessPiece selectedPiece = null;
   List<ChessSquare> possibleMoves = new ArrayList<>();
   boolean whiteTurn = true;
+  List<String> moveHistory = new ArrayList<>();
 
   public GamePlay() {
     board = new ChessBoard();
@@ -80,15 +81,18 @@ public class GamePlay {
     }
     return false;
   }
-  public void moveSelectedPieceTo(ChessSquare square) {
+  public void moveSelectedPieceTo(ChessSquare targetSquare) {
     // Move the selected piece if the move is valid and the cell is unoccupied
-    if (selectedPiece != null && possibleMoves.contains(square) && !isSquareOccupied(square)) {
+    if (selectedPiece != null && possibleMoves.contains(targetSquare) && !isSquareOccupied(targetSquare)) {
+      // Record the move in the history
+      String moveRecord = selectedPiece.getClass().getSimpleName() + " " + squareToString(targetSquare).toLowerCase();
+      moveHistory.add(moveRecord);
       // Use the appropriate interface method to set the location
       if (selectedPiece instanceof ChessMove) {
-        ((ChessMove)selectedPiece).setLocation(square);
+        ((ChessMove)selectedPiece).setLocation(targetSquare);
       } else {
         // Fallback for other actors
-        selectedPiece.loc = square;
+        selectedPiece.loc = targetSquare;
       }
       // Clear selection and possible moves after moving
       selectedPiece = null;
@@ -96,6 +100,13 @@ public class GamePlay {
       // Switch turns (white to black or black to white)
       whiteTurn = !whiteTurn;
     }
+  }
+
+  public String squareToString(ChessSquare square) {
+    return square.col + "" + square.row;
+  }
+  public List<String> getMoveHistory() {
+    return moveHistory;
   }
 
   public void paint(Graphics g, Point mouseLoc) {
@@ -114,7 +125,7 @@ public class GamePlay {
       g.fillRect(selectedPiece.loc.x, selectedPiece.loc.y, ChessSquare.size, ChessSquare.size);
     }
     Optional<ChessSquare> underMouse = board.squareAtPoint(mouseLoc);
-    // Highlight square under mouse and show coordinates
+    // Highlight square under mouse
     if(underMouse.isPresent()) {
       ChessSquare hoverSquare = underMouse.get();
       for (ChessPiece a: pieces) {
@@ -123,12 +134,18 @@ public class GamePlay {
           g.fillRect(hoverSquare.x, hoverSquare.y, ChessSquare.size, ChessSquare.size);
         }
       }
-      g.setColor(Color.DARK_GRAY);
-      g.drawString(String.valueOf(hoverSquare.col) + String.valueOf(8 - hoverSquare.row), 740, 30);
     }
     // Draw all actors
     for(ChessPiece a: pieces) {
       a.paint(g);
+    }
+    // Display move history on the right side
+    g.setColor(Color.BLACK);
+    g.drawString("Move History:", 780, 30);
+    int y = 50;
+    for (int i = 0; i < moveHistory.size(); i++) {
+      g.drawString((i+1) + ". " + moveHistory.get(i), 780, y);
+      y += 20;
     }
   }
 }
